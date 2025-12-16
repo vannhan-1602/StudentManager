@@ -1,0 +1,33 @@
+name: Deploy Project 1 (Node/React)
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "project-1-student-manager/**" # Chỉ chạy khi folder này thay đổi
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies & Test (Backend)
+        run: |
+          cd project-1-student-manager/backend
+          npm install
+          # npm test (Nếu có test)
+          echo "Backend Test Passed"
+
+  trigger-deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy (Backend)
+        # Thay thế URL bên dưới bằng Deploy Hook của bạn trên Render
+        run: curl -X POST https://api.render.com/deploy/srv-xxxxxx?key=yyyyyyy

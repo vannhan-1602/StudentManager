@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 function App() {
   const [students, setStudents] = useState([]);
   // URL Backend sau khi deploy trên Render
-  const API_URL = process.env.REACT_APP_API_URL || "https://your-backend-url.onrender.com/api/students";
+  const API_URL = process.env.REACT_APP_API_URL || "https://studentmanager-lklo.onrender.com/api/students";
 
   useEffect(() => {
     fetch(API_URL)

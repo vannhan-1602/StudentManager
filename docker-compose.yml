@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  # Service 1: Backend
+  server-api:
+    build: ./backend
+    ports:
+      - "5000:3000" # Map cổng 3000 của container ra cổng 5000 của máy tính
+    environment:
+      - PORT=3000
+
+  # Service 2: Frontend
+  client-web:
+    build: ./frontend
+    ports:
+      - "3000:3000" # Web chạy cổng 3000
+    stdin_open: true # Giữ terminal mở để React không bị thoát
+    tty: true
+    depends_on:
+      - server-api # Chờ backend chạy trước
